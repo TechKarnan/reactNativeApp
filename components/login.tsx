@@ -11,7 +11,9 @@ export function Login({navigation}: {navigation: any}){
             <TextInput placeholder="Password" onChangeText={(value)=>setPassword(value)}></TextInput>
             <Button title="Login" onPress={async ()=>{
                 if((username == await AsyncStorage.getItem('username')) && (password == await AsyncStorage.getItem('password'))){
-                    navigation.navigate('homeScreen')
+                    
+                    navigation.navigate('homeScreen');
+                   
                 }else{
                     alert();
                 }
