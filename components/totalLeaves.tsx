@@ -15,17 +15,30 @@ return(
         <TextInput placeholder='Sick Leave' keyboardType='number-pad'onChangeText={(val)=>setsl(val)} ></TextInput>
         <TextInput placeholder='Earned Leave' keyboardType='number-pad' onChangeText={(val)=>setel(val)} ></TextInput>
         <Button title='Submit' onPress={()=>{
-            onSubmit(cl,el,sl)
-            navigation.navigate('homeScreen');
+            onSubmit(cl,el,sl).then((val)=>{
+                console.log("on submit"+val)
+                AsyncStorage.setItem('totalleave','true');
+                navigation.navigate('home');
+            })
+            
         }}></Button>
     </View>
 )
-
-
 }
 
-function onSubmit(cl:any , el:any, sl:any){
-    AsyncStorage.setItem('cl', cl+'');
-    AsyncStorage.setItem('el', el+'');
-    AsyncStorage.setItem('sl', sl+'');
+async function onSubmit(cl:any , el:any, sl:any){
+     return new Promise<Boolean>(async (resolve)=>{
+
+        try{
+            await AsyncStorage.setItem('cl', cl);
+            await AsyncStorage.setItem('el', el);
+            await AsyncStorage.setItem('sl', sl);
+            resolve(true);
+            }catch(e){
+                console.log(e);
+            }
+     })
+    
+   
+
 }

@@ -3,12 +3,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import react, { useState ,useEffect } from 'react';
 import {StyleSheet, Text, View , Image} from 'react-native'
 import HomeScreen from './homeScreen';
-import ProductsScreen from './ProductsScreen';
-import CartScreen from './cartScreen';
 import { Register } from './register';
 import { Login } from './login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TotalLeaves } from './totalLeaves';
+import { ProgressScreen } from './progressScreen';
+import { DateScreen } from './datescreen';
+
 
 
 
@@ -33,24 +34,38 @@ export function SplashScreen(){
 
 
     })
+    console.log("login"+login)
     return(
         <NavigationContainer>
-            <Stack.Navigator  initialRouteName="splash">
+             <Stack.Navigator>
+       {/* {Screen ? <Stack.Screen name="splash" component={Splash} options={{
+            headerShown:false
+        }}/>:null}
+
+{login ?<Stack.Screen name="homeScreen" component={HomeScreen} options={{
+             headerLeft:()=><Text></Text>,
+             gestureEnabled: false,
+             title:'Home'
+        }}/> :<Stack.Screen name="register" component={Register} />} */}
+
         {Screen ? <Stack.Screen name="splash" component={Splash} options={{
             headerShown:false
         }}/>:null}
-        {login ?<Stack.Screen name="home" component={HomeScreen} /> :null}
-        
-        <Stack.Screen name="register" component={Register} />
-        <Stack.Screen name="login" component={Login} />
-        <Stack.Screen name="products" component={ProductsScreen} />
-        <Stack.Screen name="carts" component={CartScreen} />
-        {/* {login ?<Stack.Screen name="homeScreen" component={HomeScreen} /> :null} */}
-        <Stack.Screen name="homeScreen" component={HomeScreen} options={{
+        {!login?<Stack.Screen name="register" component={Register} />:null}
+        {!login?<Stack.Screen name="login" component={Login} />:null}
+        <Stack.Screen name="home" component={HomeScreen} options={{
              headerLeft:()=><Text></Text>,
              gestureEnabled: false,
+             title:'Home'
         }}/>
         <Stack.Screen name="TotalLeaves" component={TotalLeaves} />
+        <Stack.Screen name="ProgressScreen" component={ProgressScreen} options={{
+            title:"Leaves data"
+        }}/>
+        <Stack.Screen name="DateScreen" component={DateScreen}  options={{
+            title:"Date Selection"
+        }}/>
+      
       </Stack.Navigator>
         </NavigationContainer>
     );
@@ -66,8 +81,11 @@ export  function Splash({navigation}: {navigation: any}){
     return(
 
        <View style={style.container}>
-        <Image source={require("../assets/app.png")} style={style.image}></Image>
+        <Image source={require("../assets/image.png")} style={style.image}></Image>
         <Text style={style.text} >Phone Book</Text>
+        <View>
+            <Text>Version 1.0</Text>
+        </View>
        </View>
     )
     
